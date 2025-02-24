@@ -1,0 +1,76 @@
+body {
+    background-image: url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+    background-size: cover;
+    background-position: center;
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navbar */
+.navbar {
+    background-color: rgba(0, 0, 0, 0.8); 
+    backdrop-filter: blur(10px);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #e50914; 
+}
+
+.navbar-nav .nav-link {
+    color: #fff;
+    margin: 0 10px;
+    font-weight: 500;
+}
+
+.navbar-nav .nav-link.active {
+    color: #e50914; 
+}
+
+.navbar-nav .btn-danger {
+    margin-left: 10px;
+}
+
+/* Sections */
+section {
+    padding: 100px 0;
+    text-align: center;
+}
+
+#home {
+    background: rgba(0, 0, 0, 0.6); 
+}
+
+#events, #contact {
+    background: rgba(0, 0, 0, 0.8); 
+}
+
+#services {
+    background: rgba(0, 0, 0, 0.6); 
+}
+
+.display-3, .display-4 {
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.lead {
+    font-size: 1.25rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.btn-danger {
+    background-color: #e50914; 
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+.btn-danger:hover {
+    background-color: #b20710; 
+}
