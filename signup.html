@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventini | Sign Up / Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-elements">
+        <div class="bg-shape circle" style="--size: 120px; --color: rgba(16,101,171,0.1); --left: 15%; --top: 20%; --delay: 0s;"></div>
+        <div class="bg-shape triangle" style="--size: 80px; --color: rgba(255,89,0,0.1); --left: 85%; --top: 30%; --delay: 2s;"></div>
+        <div class="floating-icon" style="--left: 10%; --top: 15%; --delay: 1s;">🎤</div>
+        <div class="floating-icon" style="--left: 90%; --top: 25%; --delay: 1s;">🎭</div>
+        <div class="floating-icon" style="--left: 20%; --top: 70%; --delay: 1s;">🎪</div>
+        <div class="floating-icon" style="--left: 80%; --top: 60%; --delay: 1s;">🎟️</div>
+        <div class="floating-icon" style="--left: 50%; --top: 80%; --delay: 1s;">🎨</div>
+        <div class="floating-icon" style="--left: 30%; --top: 40%; --delay: 1s;">🎧</div>
+        <div class="floating-icon" style="--left: 70%; --top: 50%; --delay: 1s;">🎷</div>
+    </div>
+
+    <div class="container">
+        <!-- Brand Header -->
+        <header class="brand-header">
+            <div class="logo-wrapper">
+                <h1 class="logo animate__animated animate__fadeInDown">EVENTINI</h1>
+                <div class="logo-highlight"></div>
+            </div>
+            <p class="tagline animate__animated animate__fadeIn animate__delay-1s">Where events come to life</p>
+        </header>
+        
+        <!-- Form Section -->
+        <div class="form-wrapper">
+            <div class="form-holder">
+                <!-- Signup Form -->
+                <div class="form-container signup-form active">
+                    <form>
+                        <div class="form-group floating">
+                            <input type="text" class="form-control" id="fullName" placeholder=" " required>
+                            <label for="fullName">Full Name</label>
+                            <span class="input-icon"><i class="far fa-user"></i></span>
+                        </div>
+                        <div class="form-group floating">
+                            <input type="email" class="form-control" id="email" placeholder=" " required>
+                            <label for="email">Email</label>
+                            <span class="input-icon"><i class="far fa-envelope"></i></span>
+                        </div>
+                        <div class="form-group floating">
+                            <input type="tel" class="form-control" id="phone" placeholder=" " required>
+                            <label for="phone">Phone Number</label>
+                            <span class="input-icon"><i class="fas fa-mobile-alt"></i></span>
+                        </div>
+                        <div class="form-group floating">
+                            <input type="date" class="form-control" id="birthdate" placeholder=" " required>
+                            <label for="birthdate">Date of Birth</label>
+                            <span class="input-icon"><i class="far fa-calendar-alt"></i></span>
+                        </div>
+                        <div class="form-group floating password-group">
+                            <input type="password" class="form-control" id="password" placeholder=" " required>
+                            <label for="password">Password</label>
+                            <span class="input-icon"><i class="fas fa-lock"></i></span>
+                            <button type="button" class="toggle-password">
+                                <i class="far fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="form-group terms-group">
+                            <input type="checkbox" id="terms" required>
+                            <label for="terms">I agree to all <a href="#">terms and conditions</a></label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-signup">Sign Up</button>
+                    </form>
+                    <div class="form-footer">
+                        <button class="btn-switch" id="switch-to-login">Already have an account? <strong>Login</strong></button>
+                    </div>
+                </div>
+
+                <!-- Login Form -->
+                <div class="form-container login-form">
+                    <form>
+                        <div class="form-group floating">
+                            <input type="email" class="form-control" id="loginEmail" placeholder=" " required>
+                            <label for="loginEmail">Email</label>
+                            <span class="input-icon"><i class="far fa-envelope"></i></span>
+                        </div>
+                        <div class="form-group floating password-group">
+                            <input type="password" class="form-control" id="loginPassword" placeholder=" " required>
+                            <label for="loginPassword">Password</label>
+                            <span class="input-icon"><i class="fas fa-lock"></i></span>
+                            <button type="button" class="toggle-password">
+                                <i class="far fa-eye"></i>
+                            </button>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-login">Login</button>
+                    </form>
+                    <div class="form-footer">
+                        <button class="btn-switch" id="switch-to-signup">Don't have an account? <strong>Sign Up</strong></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
