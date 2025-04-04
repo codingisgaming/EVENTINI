@@ -1,119 +1,148 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // DOM Elements
-    const switchToLogin = document.getElementById('switch-to-login');
-    const switchToSignup = document.getElementById('switch-to-signup');
-    const signupForm = document.querySelector('.signup-form');
-    const loginForm = document.querySelector('.login-form');
-    const togglePasswordBtns = document.querySelectorAll('.toggle-password');
-    
-    // Toggle Password Visibility
-    togglePasswordBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const icon = this.querySelector('i');
-            const input = this.closest('.password-group').querySelector('input');
-            
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-            } else {
-                input.type = 'password';
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-            }
-        });
-    });
-
-    // Switch Between Forms
-    function switchForms(showForm, hideForm) {
-        hideForm.classList.remove('active');
-        setTimeout(() => {
-            showForm.classList.add('active');
-        }, 300);
+// Sample event data
+const events = [
+    {
+        id: 1,
+        title: "Tech Conference 2023",
+        date: "Oct 15, 2023",
+        time: "9:00 AM",
+        location: "Convention Center",
+        description: "Annual technology conference with keynote speakers",
+        lat: 40.7128,
+        lng: -74.0060
+    },
+    {
+        id: 2,
+        title: "Music Festival",
+        date: "Nov 5, 2023",
+        time: "12:00 PM",
+        location: "Central Park",
+        description: "Outdoor music festival featuring local artists",
+        lat: 40.7829,
+        lng: -73.9654
+    },
+    {
+        id: 3,
+        title: "Food Expo",
+        date: "Dec 10, 2023",
+        time: "10:00 AM",
+        location: "Exhibition Hall",
+        description: "Showcase of local and international cuisine",
+        lat: 40.7505,
+        lng: -73.9934
     }
+];
 
-    switchToLogin.addEventListener('click', (e) => {
-        e.preventDefault();
-        switchForms(loginForm, signupForm);
+let map;
+let markers = [];
+
+// Initialize Google Map
+function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 40.7128, lng: -74.0060 },
+        zoom: 12
     });
-
-    switchToSignup.addEventListener('click', (e) => {
-        e.preventDefault();
-        switchForms(signupForm, loginForm);
+    
+    // Add markers for all events
+    events.forEach(event => {
+        addMarker(event);
     });
+    
+    // Populate event list
+    populateEventList();
+}
 
-    // Form Submission with Confetti
-    document.querySelector('.btn-signup').addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // Validate terms
-        const termsCheckbox = document.querySelector('#terms');
-        if (!termsCheckbox.checked) {
-            alert('Please agree to the terms and conditions');
-            return;
-        }
-        
-        // Show confetti
-        confetti({
-            particleCount: 150,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: ['#1065ab', '#ff5900', '#a5e83b']
-        });
-        
-        // Simulate submission
-        this.disabled = true;
-        this.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Signing Up...';
-        
-        setTimeout(() => {
-            alert('Account created successfully!');
-            this.disabled = false;
-            this.innerHTML = 'Sign Up';
-        }, 1500);
+// Add marker to map
+function addMarker(event) {
+    const marker = new google.maps.Marker({
+        position: { lat: event.lat, lng: event.lng },
+        map: map,
+        title: event.title
     });
-
-    // Login Form Submission
-    document.querySelector('.btn-login').addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        this.disabled = true;
-        this.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Logging In...';
-        
-        setTimeout(() => {
-            alert('Login successful!');
-            this.disabled = false;
-            this.innerHTML = 'Login';
-        }, 1500);
+    
+    // Add info window
+    const infoWindow = new google.maps.InfoWindow({
+        content: `
+            <h3>${event.title}</h3>
+            <p><strong>Date:</strong> ${event.date}</p>
+            <p><strong>Time:</strong> ${event.time}</p>
+            <p><strong>Location:</strong> ${event.location}</p>
+            <p>${event.description}</p>
+        `
     });
+    
+    marker.addListener("click", () => {
+        infoWindow.open(map, marker);
+    });
+    
+    markers.push(marker);
+}
 
-    // Initialize with signup form active
-    signupForm.classList.add('active');
-
-    // Prevent form submission on Enter key
-    document.querySelectorAll('form').forEach(form => {
-        form.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
-                e.preventDefault();
+// Populate event list in sidebar
+function populateEventList() {
+    const eventList = document.querySelector(".event-list");
+    eventList.innerHTML = "";
+    
+    events.forEach(event => {
+        const eventCard = document.createElement("div");
+        eventCard.className = "event-card";
+        eventCard.innerHTML = `
+            <h3>${event.title}</h3>
+            <p class="event-date">${event.date} • ${event.time}</p>
+            <p>${event.location}</p>
+            <p>${event.description}</p>
+        `;
+        
+        eventCard.addEventListener("click", () => {
+            // Remove active class from all cards
+            document.querySelectorAll(".event-card").forEach(card => {
+                card.classList.remove("active");
+            });
+            
+            // Add active class to clicked card
+            eventCard.classList.add("active");
+            
+            // Center map on event location
+            map.setCenter({ lat: event.lat, lng: event.lng });
+            map.setZoom(15);
+            
+            // Close sidebar on mobile
+            if (window.innerWidth <= 768) {
+                document.querySelector(".sidebar").classList.remove("open");
             }
         });
-    });
-
-    // Make icons orange when focused
-    document.querySelectorAll('.form-control').forEach(input => {
-        input.addEventListener('focus', function() {
-            const icon = this.closest('.form-group').querySelector('.input-icon');
-            const toggle = this.closest('.form-group').querySelector('.toggle-password');
-            if (icon) icon.style.color = '#ff5900';
-            if (toggle) toggle.style.color = '#ff5900';
-        });
         
-        input.addEventListener('blur', function() {
-            if (!this.value) {
-                const icon = this.closest('.form-group').querySelector('.input-icon');
-                const toggle = this.closest('.form-group').querySelector('.toggle-password');
-                if (icon) icon.style.color = '#1065ab';
-                if (toggle) toggle.style.color = '#1065ab';
-            }
-        });
+        eventList.appendChild(eventCard);
+    });
+}
+
+// Toggle sidebar on mobile
+document.querySelector(".menu-toggle").addEventListener("click", () => {
+    document.querySelector(".sidebar").classList.add("open");
+});
+
+document.querySelector(".close-sidebar").addEventListener("click", () => {
+    document.querySelector(".sidebar").classList.remove("open");
+});
+
+// Search functionality
+document.querySelector(".search-container input").addEventListener("input", (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    const eventCards = document.querySelectorAll(".event-card");
+    
+    eventCards.forEach((card, index) => {
+        const event = events[index];
+        const matches = event.title.toLowerCase().includes(searchTerm) || 
+                       event.location.toLowerCase().includes(searchTerm) ||
+                       event.description.toLowerCase().includes(searchTerm);
+        
+        card.style.display = matches ? "block" : "none";
     });
 });
+
+// Filter button functionality
+document.querySelector(".filter-btn").addEventListener("click", () => {
+    alert("Filter functionality would open a filter panel in a real implementation");
+});
+
+// Initialize map when Google Maps API is loaded
+window.initMap = initMap;
