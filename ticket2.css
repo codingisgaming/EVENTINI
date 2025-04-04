@@ -1,0 +1,65 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+ 
+  :root {
+    --primary-color: #ff5900;
+    --secondary-color: #1065ab;
+    --accent-color: #a5e83b;
+  }
+  
+ 
+  .btn-custom {
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1.2rem;
+    padding: 10px 25px;
+    border-radius: 50px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 10px rgba(255, 89, 0, 0.3);
+  }
+  
+  .btn-custom:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(16, 101, 171, 0.4);
+  }
+  
+  /* Modal Styling */
+  .custom-modal {
+    border-radius: 20px;
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+  
+  .modal-header {
+    background-color: var(--secondary-color);
+    color: white;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  
+  .modal-footer {
+    background-color: #f1f1f1;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+  
+  /* Payer Button */
+  .btn-pay {
+    background-color: var(--accent-color);
+    color: #000;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-pay:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: scale(1.05);
+  }
+  
